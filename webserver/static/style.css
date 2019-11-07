@@ -1,0 +1,268 @@
+hr {
+		margin-top: 5px;
+		margin-bottom: 10px;
+}
+
+.btn.btn-xs.active {
+		color: white;
+		background-color: #ec971f;
+}
+</style>
+<style type="text/css">
+svg {
+		font: 10px sans-serif;
+		shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+		fill: none;
+		stroke: #000;
+}
+
+path.domain {
+		stroke: none;
+}
+
+.y .tick line {
+		stroke: #ddd;
+}
+
+.radar-chart .area {
+		fill-opacity: 0.7;
+}
+
+.radar-chart.focus .area {
+		fill-opacity: 0.3;
+}
+
+.radar-chart.focus .area.focused {
+		fill-opacity: 0.8;
+}
+
+.area.germany,
+.germany .circle {
+		fill: #AFD700;
+		stroke: none;
+}
+
+.area.argentina,
+.argentina .circle {
+		fill: #BDD8E6;
+		stroke: none;
+}
+
+rect.bordered {
+		stroke: #E6E6E6;
+		stroke-width: 2px;
+}
+
+text.mono {
+		font-size: 9pt;
+		font-family: Consolas, courier;
+		fill: #aaa;
+}
+
+text.axis-workweek {
+		fill: #000;
+}
+
+text.axis-worktime {
+		fill: #000;
+}
+/*
+body {
+		margin: auto;
+		position: relative;
+}
+*/
+
+.node {
+		border: solid 0.1px white;
+		font: 14px sans-serif;
+		line-height: 16px;
+		overflow: hidden;
+		position: absolute;
+		text-indent: 5px;
+		font-weight: bold;
+		color: #fff;
+}
+bg-color-blue {
+		background-color: #5368b5;
+		color: black;
+}
+
+bg-color-green {
+		background-color: #77bc64;
+		color: black;
+}
+
+bg-color-orange {
+		background-color: #f7af42;
+		color: black;
+}
+bg-color-gray {
+		background-color: #cccccc;
+		color: black;
+}
+bg-color-white {
+		background-color: #ffffff;
+		color: black;
+}
+
+
+
+.node {
+	cursor: pointer;
+}
+
+.node circle {
+	fill: #fff;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+}
+
+.node text {
+	font: 10px sans-serif;
+}
+
+.link {
+	fill: none;
+	/*stroke: steelblue;*/
+	opacity: 0.3;
+	/*stroke-width: 1.5px;*/
+}
+
+#levels{
+	margin-left: 120px;
+}
+
+#chart {
+	height: 360px;
+	position: relative;
+	width: 360px;
+}
+
+.tooltip {
+	background: #eee;
+	box-shadow: 0 0 5px #999999;
+	color: #333;
+	display: none;
+	font-size: 12px;
+	left: 130px;
+	padding: 10px;
+	position: absolute;
+	text-align: center;
+	top: 95px;
+	width: 80px;
+	z-index: 10;
+}
+
+.slidecontainer {
+		width: 100%;
+}
+
+.slider {
+		-webkit-appearance: none;
+		width: 100%;
+		height: 1px;
+		border-radius: 5px;
+		background: #d3d3d3;
+		outline: none;
+		opacity: 0.7;
+		-webkit-transition: .2s;
+		transition: opacity .2s;
+}
+
+.slider:hover {
+		opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: #4CAF50;
+		cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #4CAF50;
+		cursor: pointer;
+}
+
+.btn-attention {
+	transition: 0.2s;
+	border-left-color: white !important;
+	border-right-color: white !important;
+	border-top-color: white !important;
+	border-bottom-color: white !important;
+}
+.btn-attention:hover {
+	opacity: 1 !important;
+	background-color:hsl(0 ,80%, 50%) !important;
+	color: white !important;
+}
+
+div.tooltip {   
+		position: absolute;           
+		text-align: left;           
+		width: 60px;                  
+		height: 28px;                 
+		padding: 4px;             
+		font: 12px sans-serif;        
+		background: lightsteelblue;   
+		border-width: 2px;
+		border-radius: 4px;           
+		pointer-events: none;         
+	}
+
+rect.selection {
+  cursor: move !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  stroke: #545454;
+  stroke-width: 2px;
+  stroke-opacity: 1;
+  fill: white;
+  fill-opacity: 0.5;
+}
+
+	.axis {
+		font-family: sans-serif;
+		fill: #d35400;
+		font-size: 12px;
+	}
+	.line {
+		fill: none;
+		stroke: #f1c40f;
+		stroke-width: 3px;
+	}
+	.smoothline {
+		fill: none;
+		stroke: #e74c3c;
+		stroke-width: 3px;
+	}
+	.area {
+		fill: #e74c3c;
+		opacity: 0.5;
+	}
+	.circle {
+		stroke: #e74c3c;
+		stroke-width: 3px;
+		fill: #FFF;
+	}
+	.grid {
+		stroke: #DDD;
+		stroke-width: 1px;
+		fill: none;
+	}

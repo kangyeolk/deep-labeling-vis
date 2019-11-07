@@ -1,0 +1,69 @@
+<div class="panel">
+    <div class="panel-heading" style="height: 40px; background-color:#ffc300; color: black;">
+        <b><font size='3'>Labeling panel</font></b>
+    </div>
+    <div class="panel-body" style="height: 220px;">
+        <!-- Clustering START -->
+        <!-- <h4 class="panel-title"><b><font size='5'>Labeling status</font></b></h4>
+        <hr> -->
+        <div class="row">
+            <div id="labeling_panel" class="form-group col-lg-8">
+                <img src="{{ sample_image }}" id=
+                "patch_example">
+                <!-- <input type="image" src="{{ sample_image }}"> -->
+            </div>
+
+            <div id="controller" class="form-group col-lg-4">
+                <!-- <form action="http://163.152.29.212:5151/pass_label_info" enctype="multipart/form-data" role="form" method="post"> -->
+                <div id="label_list">
+                    <input type="button" name="label" value="Hyperplastic" class="actionOn" onclick="pass_label_info(this)" />
+                    <input type="button" name="label" value="Normal" class="actionOn" onclick="pass_label_info(this)" />
+                    <input type="button" name="label" value="Tubular Adenoma" class="actionOn" onclick="pass_label_info(this)" />
+                </div>
+                <div id="empty_space" style="width: 400px; height: 100px"></div>
+                <div id="chart2" style="width: 400px; height: 50px">
+                    <input type="text" id="add_label_text" value="">
+                    <input type="button" value="Add Label" onclick="addNewLabel()">
+                </div>
+                <div id="label_output" class="label_output"> </div>
+                <!-- </form> -->
+            </div>
+            <!-- <div id="labels_progress" class="form-group col-lg-8" >
+                <div id="id_progress_total"></div>
+            </div> -->
+        </div>
+        <!-- Clustering END -->
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+
+    function pass_label_info(el) {
+        var info = $(el).attr('value');
+        // alert(info);
+        $.ajax({
+            type : "POST",
+            url : "/pass_label_info",
+            data : {label:info},
+            success : function(data) {alert("send!");}    
+        });
+    }
+
+    function addNewLabel() {
+        var labelName = document.getElementById('add_label_text').value;
+        document.getElementById('label_output').innerHTML = labelName + ' is added to label list';
+        
+        // Append new label to container 
+        var container = document.getElementById('label_list');
+        container.innerHTML += '<input type="button" name="label" value=' + labelName + ' class="actionOn" onclick="pass_label_info(this)" />\n' 
+    }
+
+    var selectionExists;
+
+    function areaToString (area) {
+        return (typeof area.id === "undefined" ? "" : (area.id + ": ")) + area.x + ':' + area.y  + ' ' + area.width + 'x' + area.height + '<br />'
+    }
+
+</script>

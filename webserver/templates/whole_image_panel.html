@@ -1,0 +1,387 @@
+<div class="panel">
+	<div class="panel-heading" style="background-color:#ffc300; color: black;">
+		<b><font size='5'>Whole slide image labeling</font></b>
+	</div>
+	<div class="panel-body" style="height: 220px;">
+		<!-- Clustering START -->
+		<!-- <h4 class="panel-title"><b><font size='5'>Labeling status</font></b></h4>
+		<hr> -->
+		<div class="row">
+			<form action="upload_whole_image" enctype="multipart/form-data" role="form" method="post">
+				<!-- <div id="id_controller" style="width: 400px; height: 200px"> -->
+				
+				<div class="col-lg-5">
+					<div class="col-lg-4" style="padding-left: 0px; padding-right: 0px">
+						<h3 style="margin-top: 4px">Select image:</h3>
+					</div>
+					<div class="file btn col-lg-6" style="padding-left: 0px; padding-right: 0px; padding-top: 4px">
+
+
+						<!-- <div class="input-group input-file">
+							<span class="input-group-btn">
+								<button class="btn btn-default btn-choose" type="button">Choose</button>
+							</span>
+							<input id="whole_image" type="text" class="form-control" placeholder='Choose a file...' />
+							
+						</div> -->
+
+						<input style="font-size: 16px; padding: 0 0 0 0" type="file" id="whole_image" name="whole_image">
+
+
+					</div>
+					<div class="col-lg-2">
+						<button class="btn" type="submit" name="upload_image">Upload</button>
+					</div>
+
+				</div>
+				<div class="col-lg-4">
+					<div class="col-lg-12" style="padding-left: 0px; padding-right: 0px">
+						<div class="col-lg-2" style="padding-left: 0px; padding-right: 0px">
+							<h3 style="margin-top: 4px;">Label:</h3>
+						</div>
+						<div class="col-lg-10" style="padding-left: 0px; padding-right: 0px">
+							<div id="label_list">
+								<input type="button" name="label" value="Normal" class="btn actionOn" onclick="pass_label_info(this)" />
+								<input type="button" name="label" value="Hyperplastic" class="btn actionOn" onclick="pass_label_info(this)" />
+								<input type="button" name="label" value="Tubular Adenoma" class="btn actionOn" onclick="pass_label_info(this)" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-3" style="padding-left: 0px; padding-right: 0px; margin-left:-30px">
+					<div class="col-lg-12" style="padding-left: 0px; padding-right: 0px; width:380px">
+
+						<div class="col-lg-3" style="padding-left: 0px; padding-right: 0px">
+							<h3 style="margin-top: 4px">Training: </h3>
+						</div>
+
+						<div class="col-lg-9" style="padding-left: 0px; padding-right: 0px; width:270px">
+
+								<div class="col-lg-3">
+									<input class="form-control" type="text" id="param_alpha" value="0.1" style="width: 50px">
+								</div>
+								<div class="col-lg-9" style="padding-left: 0px; padding-right: 0px">
+									<input type="button" name="label" value="Predict" class="btn actionOn" onclick="pass_label_info(this)" />
+									<input class="btn" type="button" name="train" value="Train" class="actionOn" onclick="do_train()" />
+									<input class="btn" type="button" name="train" value="Clear" class="actionOn" onclick="delete_label_folder()" />
+								</div>
+								<!-- <div class="col">
+									<input class="btn" type="button" name="train" value="Train" class="actionOn" onclick="do_train()" />
+									<input class="btn" type="button" name="train" value="Clear" class="actionOn" onclick="delete_label_folder()" />
+									<input type="button" name="label" value="Similarity based select" class="btn actionOn" onclick="pass_label_info(this)" />
+								</div> -->							
+							
+						</div>
+
+						<!-- <div class="col-lg-4" style="padding-left: 0px; padding-right: 0px">
+							<h3 style="margin-top: 4px">Select area: </h3>
+						</div> -->
+						<!-- <div class="col-lg-2" style="padding-left: 0px; padding-right: 0px">
+							<input type="button" name="label" value="Similarity based select" class="btn actionOn" onclick="pass_label_info(this)" />
+						</div> -->
+						
+					</div>
+
+				</div>
+
+				<!-- <div class="col-lg-3">
+
+				</div>
+
+					
+					<div class="col-lg-12">
+						<div id="label_list">
+							<input type="button" name="label" value="Hyperplastic" class="actionOn" onclick="pass_label_info(this)" />
+							<input type="button" name="label" value="Normal" class="actionOn" onclick="pass_label_info(this)" />
+							<input type="button" name="label" value="Tubular Adenoma" class="actionOn" onclick="pass_label_info(this)" />
+						</div>
+					</div>
+				</div> -->
+			</form>
+		</div>
+		<div class="row">
+			<div id="whole_image_panel" class="form-group col-lg-8" style="padding-left: 0px">
+				<!-- <div class="sadfffefefef" style="opacity: 1; position: absolute; cursor: default; width: 219px; height: 100px; left: 501px; top: 102px; z-index: 200; border: 1px; border-style: solid; border-color: #fff"></div> -->
+				<img src="{{ sample_image }}" id="whole_slide_image">
+
+				
+				<!-- <input type="image" src="{{ sample_image }}"> -->
+			</div>
+
+			<div id="controller" class="form-group col-lg-4">
+
+				<!-- <input type="button" name="patch" value="Show patch grid" onclick="show_patch_grid(this)" /> -->
+				<!-- <table>
+					<tr>
+						<td class="actions">
+							<input type="button" id="btnView" value="Display areas" class="actionOn" />
+							<input type="button" id="btnViewRel" value="Display relative" class="actionOn" />
+							<input type="button" id="btnNew" value="Add New" class="actionOn" />
+							<input type="button" id="btnNews" value="Add 2 New" class="actionOn" />
+							<input type="button" id="btnReset" value="Reset" class="actionOn" />
+							<input type="button" id="btnDestroy" value="Destroy" class="actionOn" />
+							<input type="button" id="btnCreate" value="Create" class="actionOff" />
+						</td>
+						<td>
+							<div id="output" class='output'> </div>
+						</td>
+					</tr>
+				</table> -->
+			<!-- </div>
+			<div id="labels_progress" class="form-group col-lg-4" > -->
+				
+				<!-- <div id="empty_space" style="width: 400px; height: 100px"></div>
+				<div id="chart2" style="width: 400px; height: 50px">
+					<input type="text" id="add_label_text" value="">
+					<input type="button" value="Add Label" onclick="addNewLabel()">
+				</div>
+				<div id="label_output" class="label_output"> </div> -->
+
+				<!-- <h3>Set label on patches: </h3>
+				<div class="col-lg-12">
+					<div id="label_list">
+						<input type="button" name="label" value="Hyperplastic" class="actionOn" onclick="pass_label_info(this)" />
+						<input type="button" name="label" value="Normal" class="actionOn" onclick="pass_label_info(this)" />
+						<input type="button" name="label" value="Tubular Adenoma" class="actionOn" onclick="pass_label_info(this)" />
+					</div>
+				</div> -->
+
+				<!-- <br>
+				<h3>Similarity-based Selection: </h3>
+				<div class="col-lg-12">
+					<div id="selection">
+						<input type="button" name="label" value="Similarity-based-selection" class="actionOn" onclick="pass_label_info(this)" />
+					</div>
+				</div> -->
+
+				<!-- <br>
+				<h3>Training: </h3>
+				<div class="col-lg-12">
+					<div id="train">
+						Alpha: <input type="text" id="param_alpha" value="0.1" style="width: 50px">
+						<input type="button" name="train" value="Train" class="actionOn" onclick="do_train()" />
+						<input type="button" name="train" value="Delete label files" class="actionOn" onclick="delete_label_folder()" />
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<!-- Clustering END -->
+	</div>
+	<div style="height: 200px"></div>
+</div>
+<script type="text/javascript">
+	var PANEL_WIDTH = 1400;
+	var PATCH_SIZE = 256;
+
+	$(document).ready(function () {
+		$('img#whole_slide_image').selectAreas({
+			minSize: [10, 10],
+			onChanged: onChangeArea,
+			width: PANEL_WIDTH,
+			outlineOpacity: 1.0,
+			overlayOpacity: 0.0,
+			areas: []
+		});
+		$('#btnView').click(function () {
+			var areas = $('img#whole_slide_image').selectAreas('areas');
+			displayAreas(areas);
+		});
+		$('#btnViewRel').click(function () {
+			var areas = $('img#whole_slide_image').selectAreas('relativeAreas');
+			displayAreas(areas);
+		});
+		$('#btnReset').click(function () {
+			output("reset")
+			$('img#whole_slide_image').selectAreas('reset');
+		});
+		$('#btnDestroy').click(function () {
+			$('img#whole_slide_image').selectAreas('destroy');
+
+			output("destroyed")
+			$('.actionOn').attr("disabled", "disabled");
+			$('.actionOff').removeAttr("disabled")
+		});
+		$('#btnCreate').attr("disabled", "disabled").click(function () {
+			$('img#whole_slide_image').selectAreas({
+				minSize: [10, 10],
+				onChanged : onChangeArea,
+				width: 500,
+			});
+
+			output("created")
+			$('.actionOff').attr("disabled", "disabled");
+			$('.actionOn').removeAttr("disabled")
+		});
+		$('#btnNew').click(function () {
+			var areaOptions = {
+				x: Math.floor((Math.random() * 200)),
+				y: Math.floor((Math.random() * 200)),
+				width: Math.floor((Math.random() * 100)) + 50,
+				height: Math.floor((Math.random() * 100)) + 20,
+			};
+			output("Add a new area: " + areaToString(areaOptions))
+			$('img#whole_slide_image').selectAreas('add', areaOptions);
+		});
+		$('#btnNews').click(function () {
+			var areaOption1 = {
+				x: Math.floor((Math.random() * 200)),
+				y: Math.floor((Math.random() * 200)),
+				width: Math.floor((Math.random() * 100)) + 50,
+				height: Math.floor((Math.random() * 100)) + 20,
+			}, areaOption2 = {
+				x: areaOption1.x + areaOption1.width + 10,
+				y: areaOption1.y + areaOption1.height - 20,
+				width: 50,
+				height: 20,
+			};
+			output("Add a new area: " + areaToString(areaOption1) + " and " + areaToString(areaOption2))
+			$('img#whole_slide_image').selectAreas('add', [areaOption1, areaOption2]);
+		});
+
+		bs_input_file();
+	});
+
+	var selectionExists;
+
+	function areaToString (area) {
+		return (typeof area.id === "undefined" ? "" : (area.id + ": ")) + area.x + ':' + area.y  + ' ' + area.width + 'x' + area.height + '<br />'
+	}
+
+	function output (text) {
+		$('#output').html(text);
+	}
+
+	
+	// On area changed
+	function onChangeArea (event, id, areas) {
+		console.log(areas.length + " areas", arguments);
+	};
+
+	// Display areas coordinates in a div
+	function displayAreas (areas) {
+		var text = "";
+		$.each(areas, function (id, area) {
+			text += areaToString(area);
+		});
+		output(text);
+	};
+	
+	// Display Whole image
+	// _self.dotImage = _self.dot.append("svg:image")
+	// .classed("dotImage", true)
+	// .attr('x', -7)
+	// .attr('y', -7)
+	// .attr('width', 16)
+	// .attr('height', 16)
+	// // .attr("xlink:href", canv_img.toDataURL())
+	// .attr("xlink:href", function(d, i) {
+	//     // return get_canvas_from_array(L, grads, i, 3).toDataURL();
+	//     //return "static/sample_img.png";
+	//     var num = Math.random();
+	//     var i_to_index = i + _self.model_info.range[0];
+
+	//     if (_self.model_info.data_type == 'Training Set') {
+	//         return 'static/tsne_images/training/image_' + i_to_index + '.png?v=' + num;
+	//     } else {
+	//         return 'static/tsne_images/test/image_' + i_to_index + '.png?v=' + num;
+	//     }
+	// });
+
+	function show_patch_grid(el) {
+		window.socket.emit("request_patch_grid");
+	}
+
+	function pass_label_info(el) {
+		var lb = $(el).attr('value');
+		var areas_rel = $('img#whole_slide_image').selectAreas('areas');
+		// var areas_rel = $('img#whole_slide_image').selectAreas('relativeAreas');
+
+		// console.log(areas);
+		// console.log(areas_rel);
+
+		var area;
+		for (var i=0; i < areas_rel.length; i++) {
+			if (areas_rel[i].z == 100)      // we will send only activated area.
+				area = areas_rel[i]
+		}
+
+		console.log(area)
+
+		var nLabel = ''
+		if ( lb == 'Predict') {
+			nLabel = 'selected'
+			window.socket.emit("pass_label_info", {'data': area, 'label': nLabel});
+			do_train();
+			window.socket.emit("request_patch_grid");
+			
+		} else {
+			if ( lb == 'Hyperplastic' ) {
+				nLabel = 'hp';
+			} else if ( lb == 'Normal' ) {
+				nLabel = 'normal';
+			} else if ( lb == 'Tubular Adenoma') {
+				nLabel = 'ta';
+			} 
+
+			window.socket.emit("pass_label_info", {'data': area, 'label': nLabel});
+			window.socket.emit("request_patch_grid");
+		}
+
+		console.log(nLabel)
+	}
+
+	function do_train() {
+		// var alpha = $(el).attr('param_alpha');
+		var alpha = document.getElementById("param_alpha").value;
+		console.log(alpha);
+		window.socket.emit("do_train", {'data': 'null', 'alpha': alpha});
+	}
+
+	function delete_label_folder() {
+		window.socket.emit("delete_label_folder", {'data': 'null'});
+	}
+
+	function addNewLabel() {
+		var labelName = document.getElementById('add_label_text').value;
+		document.getElementById('label_output').innerHTML = labelName + ' is added to label list';
+		
+		// Append new label to container 
+		var container = document.getElementById('label_list');
+		container.innerHTML += '<input type="button" name="label" value=' + labelName + ' class="actionOn" onclick="pass_label_info(this)" />\n' 
+	}
+
+	var selectionExists;
+
+	function areaToString (area) {
+		return (typeof area.id === "undefined" ? "" : (area.id + ": ")) + area.x + ':' + area.y  + ' ' + area.width + 'x' + area.height + '<br />'
+	}
+
+	function bs_input_file() {
+	$(".input-file").before(
+		function() {
+			if ( ! $(this).prev().hasClass('input-ghost') ) {
+				var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+				element.attr("name",$(this).attr("name"));
+				element.change(function(){
+					element.next(element).find('input').val((element.val()).split('\\').pop());
+				});
+				$(this).find("button.btn-choose").click(function(){
+					element.click();
+				});
+				$(this).find("button.btn-reset").click(function(){
+					element.val(null);
+					$(this).parents(".input-file").find('input').val('');
+				});
+				$(this).find('input').css("cursor","pointer");
+				$(this).find('input').mousedown(function() {
+					$(this).parents('.input-file').prev().click();
+					return false;
+				});
+				return element;
+			}
+		}
+	);
+}
+
+</script>
